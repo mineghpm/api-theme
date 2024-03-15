@@ -1,31 +1,25 @@
 const axios = require('axios');
 
-// Định nghĩa URL của API và URL của proxy
-const apiUrl = 'https://example.com/api';
-const proxyUrl = 'https://your-proxy-url.com';
+// Định nghĩa URL của API
+const apiUrl = 'https://api.example.com/themes';
 
-// Tạo một phiên axios và cấu hình nó để sử dụng proxy
-const axiosInstance = axios.create({
-  baseURL: proxyUrl,
-  // Bổ sung các tùy chọn khác nếu cần thiết, ví dụ: timeout, headers, etc.
-});
-
-// Tạo một endpoint để gửi yêu cầu đến API thông qua proxy
-async function fetchDataFromApi(endpoint) {
+// Hàm để lấy dữ liệu từ API về chủ đề
+async function layDuLieuChuDe() {
   try {
-    const response = await axiosInstance.get(apiUrl + endpoint);
-    return response.data;
+    const response = await axios.get(apiUrl);
+    const duLieu = response.data;
+    return duLieu;
   } catch (error) {
-    console.error('Lỗi khi gửi yêu cầu đến API:', error);
+    console.error('Lỗi khi lấy dữ liệu từ API:', error);
     throw error;
   }
 }
 
-// Sử dụng endpoint để lấy dữ liệu từ API
+// Sử dụng hàm để lấy dữ liệu về chủ đề từ API
 (async () => {
   try {
-    const data = await fetchDataFromApi('/exampleEndpoint');
-    console.log('Dữ liệu từ API:', data);
+    const duLieuChuDe = await layDuLieuChuDe();
+    console.log('Dữ liệu về chủ đề:', duLieuChuDe);
   } catch (error) {
     console.error('Đã xảy ra lỗi:', error);
   }
